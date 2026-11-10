@@ -56,9 +56,9 @@ function renderChart(c) {
   const ymax = Math.max(400, ...p90, ...act, now) * 1.08;
   const X = (h) => L + (h / F.HORIZON) * (W - L - R), Y = (v) => T + (1 - v / ymax) * (H - T - B);
   const step = ymax > 1200 ? 400 : 200;
-  for (let v = 0; v <= ymax; v += step) { el('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: '#d8e1ea' }, svg); el('text', { x: L - 8, y: Y(v) + 4, 'font-size': 12, fill: '#6b6f78', 'text-anchor': 'end' }, svg).textContent = `${v}`; }
-  el('text', { x: L - 8, y: H - B + 18, 'font-size': 12, fill: '#6b6f78', 'text-anchor': 'end' }, svg).textContent = 'kW';
-  for (let h = 0; h <= 72; h += 6) { el('line', { x1: X(h), x2: X(h), y1: T, y2: H - B, stroke: h % 24 === 0 ? '#cdc9c5' : '#eef1f4' }, svg); el('text', { x: X(h), y: H - B + 18, 'font-size': 12, fill: '#6b6f78', 'text-anchor': 'middle' }, svg).textContent = h === 0 ? 'now' : `+${h}h`; }
+  const topTick = Math.floor(ymax / step) * step;
+  for (let v = 0; v <= ymax; v += step) { el('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: '#d8e1ea' }, svg); el('text', { x: L - 8, y: Y(v) + 4, 'font-size': 12, fill: '#6b6f78', 'text-anchor': 'end' }, svg).textContent = v === topTick ? `${v} kW` : `${v}`; }
+    for (let h = 0; h <= 72; h += 6) { el('line', { x1: X(h), x2: X(h), y1: T, y2: H - B, stroke: h % 24 === 0 ? '#cdc9c5' : '#eef1f4' }, svg); el('text', { x: X(h), y: H - B + 18, 'font-size': 12, fill: '#6b6f78', 'text-anchor': 'middle' }, svg).textContent = h === 0 ? 'now' : `+${h}h`; }
   const area = p90.map((v, h) => `${X(h + 1)},${Y(v)}`).concat(p10.map((v, h) => `${X(h + 1)},${Y(v)}`).reverse()).join(' ');
   el('polygon', { points: `${X(0)},${Y(now)} ${area} ${X(0)},${Y(now)}`, fill: 'rgba(114,146,170,.28)' }, svg);
   el('polyline', { points: `${X(0)},${Y(now)} ` + p50.map((v, h) => `${X(h + 1)},${Y(v)}`).join(' '), fill: 'none', stroke: '#7292aa', 'stroke-width': 2 }, svg);
