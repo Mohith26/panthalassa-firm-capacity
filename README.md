@@ -29,7 +29,7 @@ Analog library and calibration use 2023; tests use 730 origins in 2024, every 6 
 Mean available fleet IT power in 2024 was 704 kW.
 
 - **The raw forecast is overconfident.** Its own 1-in-100 low was kept only 92.4% of the time. Calibrated, the pooled plan kept 98.6%.
-- **Pooling is worth about 2.4×** (1.6× in the reverse split) in firm compute versus committing each node alone, because storms and lulls don't line up across a 1,000-mile fleet.
+- **Pooling is worth about 2.4×** (1.6× in the reverse split) in firm compute versus committing each node alone, because storms and lulls don't line up across nodes hundreds of miles apart.
 - **Honest caveat:** out of sample, the pooled plan landed slightly under its 99% target (98.6%) in the forward split and over it (99.7%) in the reverse. Calibration only guarantees the target when the test year's sea states look like the calibration year's, so a production version should recalibrate on a rolling window.
 
 ## Run it
