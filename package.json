@@ -1,0 +1,1 @@
+{ "name": "panthalassa-firm-capacity", "private": true, "type": "module", "scripts": { "test": "node --test test/*.test.js", "backtest": "node scripts/backtest.js", "data": "python3 scripts/fetch_ndbc.py" } }
